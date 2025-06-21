@@ -1,4 +1,4 @@
-package com.example.app_elections;
+package com.example.electionmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,11 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.example.app_elections.fragments.FeaturesFragment;
-import com.example.app_elections.fragments.FooterFragment;
-import com.example.app_elections.fragments.HeaderFragment;
-import com.example.app_elections.fragments.WelcomeFragment;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,17 +14,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Charger les fragments
-        loadFragment(new HeaderFragment(), R.id.header_container);
-        loadFragment(new WelcomeFragment(), R.id.welcome_container);
-        loadFragment(new FeaturesFragment(), R.id.features_container);
-        loadFragment(new FooterFragment(), R.id.footer_container);
+        // Charger le premier fragment (LoginFragment)
+        loadFragment(new LoginFragment());
     }
 
-    private void loadFragment(Fragment fragment, int containerId) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(containerId, fragment);
+    public void loadFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

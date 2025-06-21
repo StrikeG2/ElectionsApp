@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Créer un Centre de Vote"
+            android:textSize="24sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID du centre"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/center_id_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Entrez l'ID du centre"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Localisation"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"/>
+
+        <EditText
+            android:id="@+id/center_location_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Entrez l'adresse complète"
+            android:inputType="textPostalAddress"/>
+
+        <Button
+            android:id="@+id/create_center_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Créer le centre"
+            android:layout_marginTop="24dp"/>
+    </LinearLayout>
+</ScrollView>

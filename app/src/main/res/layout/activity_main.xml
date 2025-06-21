@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
-
-    <!-- Header Fragment -->
-    <FrameLayout
-        android:id="@+id/header_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- Welcome Fragment -->
-    <FrameLayout
-        android:id="@+id/welcome_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- Features Fragment -->
-    <FrameLayout
-        android:id="@+id/features_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- Footer Fragment -->
-    <FrameLayout
-        android:id="@+id/footer_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+    android:layout_height="match_parent" />
