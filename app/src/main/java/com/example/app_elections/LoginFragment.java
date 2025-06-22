@@ -22,7 +22,7 @@ public class LoginFragment extends Fragment {
         Button loginButton = view.findViewById(R.id.login_button);
         loginButton.setOnClickListener(v -> {
             // Naviguer vers le fragment des candidats
-            ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new CandidatesFragment());
+            ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CandidatesFragment());
         });
 
         return view;

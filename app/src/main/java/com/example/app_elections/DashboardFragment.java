@@ -37,13 +37,13 @@ public class DashboardFragment extends Fragment {
 
         // Navigation
         electionsBtn.setOnClickListener(v ->
-                ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new ElectionsFragment()));
+                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new ElectionsFragment()));
 
         candidatesBtn.setOnClickListener(v ->
-                ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new CandidatesFragment()));
+                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CandidatesFragment()));
 
         districtsBtn.setOnClickListener(v ->
-                ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new DistrictsFragment()));
+                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new DistrictsFragment()));
 
         return view;
     }
