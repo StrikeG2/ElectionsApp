@@ -16,9 +16,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Charger le premier fragment (LoginFragment)
         loadFragment(new LoginFragment());
+        // Charger le fragment de login par défaut
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new LoginFragment())
+                    .commit();
+        }
     }
 
     public void loadFragment(Fragment fragment) {
@@ -27,5 +31,19 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void navigateToAdminDashboard() {
+        // Implémentez la navigation vers le dashboard admin
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new DashboardFragment())
+                .commit();
+    }
+
+    public void navigateToVoterDashboard() {
+        // Implémentez la navigation vers le dashboard electeur
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new DashboardFragment())
+                .commit();
     }
 }
