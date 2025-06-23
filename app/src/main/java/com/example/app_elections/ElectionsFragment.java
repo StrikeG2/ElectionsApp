@@ -91,7 +91,7 @@ public class ElectionsFragment extends Fragment {
         }
     }
 
-    private static class Election {
+    public static class Election {
         private String title;
         private String status;
         private String date;

@@ -32,16 +32,19 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.room.common.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("androidx.appcompat:appcompat:1.4.1")
-    implementation ("com.google.android.material:material:1.5.0")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.3")
-    implementation ("androidx.fragment:fragment:1.4.1")
+    implementation (libs.appcompat.v141)
+    implementation (libs.material.v150)
+    implementation (libs.constraintlayout.v213)
+    implementation (libs.fragment)
+    implementation(libs.sqlite)
+    implementation(libs.room.runtime)
+    implementation (libs.jbcrypt)
 }
