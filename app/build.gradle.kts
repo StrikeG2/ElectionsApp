@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.room.common.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -44,4 +45,6 @@ dependencies {
     implementation (libs.constraintlayout.v213)
     implementation (libs.fragment)
     implementation(libs.sqlite)
+    implementation(libs.room.runtime)
+    implementation (libs.jbcrypt)
 }
