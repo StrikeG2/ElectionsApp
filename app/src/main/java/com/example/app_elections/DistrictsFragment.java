@@ -36,7 +36,7 @@ public class DistrictsFragment extends Fragment {
         loadSampleDistricts();
 
         addDistrictButton.setOnClickListener(v -> {
-            ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new CreateDistrictFragment());
+            ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CreateDistrictFragment());
         });
 
         return view;

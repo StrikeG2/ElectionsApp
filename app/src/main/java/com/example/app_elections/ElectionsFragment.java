@@ -46,7 +46,7 @@ public class ElectionsFragment extends Fragment {
 
         // Gestion du clic sur le bouton
         createElectionBtn.setOnClickListener(v -> {
-            ((com.example.electionmanager.MainActivity)requireActivity()).loadFragment(new CreateElectionFragment());
+            ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CreateElectionFragment());
         });
 
         return view;
