@@ -129,7 +129,6 @@
                 app:backgroundTint="@color/card_background"
                 app:cornerRadius="8dp"
                 app:elevation="0dp"
-                app:icon="@drawable/ic_google"
                 app:iconTint="@null"
                 app:strokeColor="@color/divider"
                 app:strokeWidth="1dp"/>

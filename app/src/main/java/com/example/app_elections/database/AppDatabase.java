@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.app_elections.database.daos.UtilisateurDao;
+import com.example.app_elections.database.daos.ElectionDao;
 import com.example.app_elections.database.entities.Candidat;
 import com.example.app_elections.database.entities.Electeur;
 import com.example.app_elections.database.entities.Election;
@@ -14,15 +15,16 @@ import com.example.app_elections.database.entities.Resultat;
 import com.example.app_elections.database.entities.Utilisateur;
 
 @Database(entities = {
-        Utilisateur.class, 
+        Utilisateur.class,
         Electeur.class,
-        Election.class, 
-        Candidat.class, 
+        Election.class,
+        Candidat.class,
         Resultat.class
 }, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UtilisateurDao utilisateurDao();
-    // Ajouter d'autres DAOs
+    public abstract ElectionDao electionDao();
+    // Ajouter d'autres DAOs si besoin
 
     private static volatile AppDatabase INSTANCE;
 
@@ -32,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "elections.db")
-                            .fallbackToDestructiveMigration() // Pour la simplicité
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

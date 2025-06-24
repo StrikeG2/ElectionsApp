@@ -1,0 +1,84 @@
+<!-- res/navigation/main_nav_graph.xml -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/electionFragment"
+        android:name="com.example.app_elections.ElectionsFragment"
+        android:label="Élections" />
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.app_elections.DashboardFragment"
+        android:label="Dashboard" />
+
+    <!-- Fragments pour la gestion des candidats -->
+    <fragment
+        android:id="@+id/candidatesFragment"
+        android:name="com.example.app_elections.CandidatesFragment"
+        android:label="Candidats">
+        <action
+            android:id="@+id/action_candidates_to_addCandidate"
+            app:destination="@id/addCandidateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addCandidateFragment"
+        android:name="com.example.app_elections.AddCandidateFragment"
+        android:label="Ajouter un candidat" />
+
+    <!-- Fragments pour la gestion des circonscriptions -->
+    <fragment
+        android:id="@+id/districtsFragment"
+        android:name="com.example.app_elections.DistrictsFragment"
+        android:label="Circonscriptions">
+        <action
+            android:id="@+id/action_districts_to_createDistrict"
+            app:destination="@id/createdistrictFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createdistrictFragment"
+        android:name="com.example.app_elections.CreateDistrictFragment"
+        android:label="Créer une circonscription" />
+
+    <!-- Fragments pour la gestion des élections -->
+    <fragment
+        android:id="@+id/createElectionFragment"
+        android:name="com.example.app_elections.CreateElectionFragment"
+        android:label="Créer une élection" />
+
+    <!-- Fragments pour la gestion des centres de vote -->
+    <fragment
+        android:id="@+id/pollingCentersFragment"
+        android:name="com.example.app_elections.PollingCentersFragment"
+        android:label="Centres de vote">
+        <action
+            android:id="@+id/action_centers_to_createCenter"
+            app:destination="@id/createPollingCenterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPollingCenterFragment"
+        android:name="com.example.app_elections.CreatePollingCenterFragment"
+        android:label="Créer un centre de vote" />
+
+    <!-- Fragments pour les résultats -->
+    <fragment
+        android:id="@+id/resultsEntryFragment"
+        android:name="com.example.app_elections.ResultsEntryFragment"
+        android:label="Saisie des résultats" />
+
+    <fragment
+        android:id="@+id/resultsValidationFragment"
+        android:name="com.example.app_elections.ResultsValidationFragment"
+        android:label="Validation des résultats" />
+
+    <!-- Fragment de lancement -->
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.example.app_elections.LaunchFragment"
+        android:label="Bienvenue" />
+</navigation>
