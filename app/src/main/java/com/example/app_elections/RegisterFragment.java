@@ -1,6 +1,7 @@
 package com.example.app_elections;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,18 @@ public class RegisterFragment extends Fragment {
         viewModel.getErreurMessage().observe(getViewLifecycleOwner(), message -> {
             Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
         });
+
+        binding.textViewLoginLink.setOnClickListener(v -> {
+            try {
+                Navigation.findNavController(v).navigate(R.id.action_register_to_login);
+            } catch (IllegalArgumentException e) {
+                // Action de navigation non trouvée
+                Toast.makeText(requireContext(),
+                        "Navigation non configurée",
+                        Toast.LENGTH_SHORT).show();
+                Log.e("RegisterFragment", "Action de navigation non trouvée", e);
+            }
+        });
     }
 
     private boolean validerFormulaire() {
@@ -104,7 +117,12 @@ public class RegisterFragment extends Fragment {
         }
 
         return valide;
+
     }
+
+
+
+
 
     @Override
     public void onDestroyView() {

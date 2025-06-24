@@ -8,76 +8,107 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.example.app_elections.database.AppDatabase;
+import com.example.app_elections.databinding.FragmentLoginBinding;
+import com.example.app_elections.repositories.UserRepository;
+
+import java.util.concurrent.Executors;
+
+// LoginFragment.java
+// LoginFragment.java
 public class LoginFragment extends Fragment {
-    private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin;
-    private DatabaseHelper dbHelper;
+    private FragmentLoginBinding binding;
+    private UserRepository userRepository;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
 
-        // Initialisation des vues
-        editTextEmail = view.findViewById(R.id.editTextEmail);
-        editTextPassword = view.findViewById(R.id.editTextPassword);
-        buttonLogin = view.findViewById(R.id.login_button);
+        // Initialisation avec Room
+        AppDatabase db = AppDatabase.getDatabase(requireActivity());
+        userRepository = new UserRepository(
+                db.utilisateurDao(),
+                Executors.newSingleThreadExecutor()
+        );
 
-        // Initialisation de la base de données
-        dbHelper = new DatabaseHelper(getActivity());
+        setupLoginButton();
+        setupForgotPassword();
 
-        // Gestion du clic sur le bouton de connexion
-        buttonLogin.setOnClickListener(v -> attemptLogin());
-
-        return view;
+        return binding.getRoot();
     }
 
-    private void attemptLogin() {
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+    private void setupLoginButton() {
+        binding.loginButton.setOnClickListener(v -> {
+            String email = binding.editTextEmail.getText().toString().trim();
+            String password = binding.editTextPassword.getText().toString().trim();
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getActivity(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
-            return;
+            if (validateInputs(email, password)) {
+                attemptLogin(email, password);
+            }
+        });
+    }
+
+    private void setupForgotPassword() {
+        // Ajoutez ici la logique pour "Mot de passe oublié"
+        binding.editTextPassword.setOnClickListener(v -> {
+            // Navigation vers le fragment de récupération de mot de passe
+        });
+    }
+
+    private boolean validateInputs(String email, String password) {
+        if (email.isEmpty()) {
+            binding.editTextEmail.setError("Email requis");
+            return false;
         }
-
-        // Vérification des identifiants
-        boolean isAuthenticated = dbHelper.checkUser(email, password);
-
-        if (isAuthenticated) {
-            // Connexion réussie
-            Toast.makeText(getActivity(), "Connexion réussie", Toast.LENGTH_SHORT).show();
-
-            // Récupérer le type d'utilisateur et rediriger
-            String userType = dbHelper.getUserType(email);
-            redirectUser(userType);
-        } else {
-            Toast.makeText(getActivity(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
+        if (password.isEmpty()) {
+            binding.editTextPassword.setError("Mot de passe requis");
+            return false;
         }
+        return true;
+    }
+
+    private void attemptLogin(String email, String password) {
+        userRepository.authenticate(email, password).observe(getViewLifecycleOwner(), success -> {
+            if (success) {
+                onLoginSuccess(email);
+            } else {
+                onLoginFailure();
+            }
+        });
+    }
+
+    private void onLoginSuccess(String email) {
+        Toast.makeText(requireContext(), "Connexion réussie", Toast.LENGTH_SHORT).show();
+        userRepository.getUserType(email).observe(getViewLifecycleOwner(), this::redirectUser);
+    }
+
+    private void onLoginFailure() {
+        Toast.makeText(requireContext(), "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
     }
 
     private void redirectUser(String userType) {
-        // Selon le diagramme de classes, vous avez Electeur, Admin, Superviseur, Opérateur
-        switch (userType) {
+        switch (userType.toLowerCase()) {
             case "admin":
-                // Rediriger vers l'interface Admin
-                ((MainActivity)requireActivity()).navigateToFragment(R.id.dashboardFragment);
+                navigateTo(R.id.dashboardFragment);
                 break;
             case "electeur":
-                // Rediriger vers l'interface Electeur
-                ((MainActivity)requireActivity()).navigateToFragment(R.id.dashboardFragment);
+                navigateTo(R.id.dashboardFragment);
                 break;
-            // Ajouter les autres cas selon vos besoins
+            case "superviseur":
+                navigateTo(R.id.dashboardFragment);
+                break;
+            case "operateur":
+                navigateTo(R.id.dashboardFragment);
+                break;
             default:
-                Toast.makeText(getActivity(), "Type d'utilisateur inconnu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Type d'utilisateur inconnu", Toast.LENGTH_SHORT).show();
         }
     }
 
-    @Override
-    public void onDestroy() {
-        dbHelper.close();
-        super.onDestroy();
+    private void navigateTo(int destinationId) {
+        Navigation.findNavController(binding.getRoot()).navigate(destinationId);
     }
 }
