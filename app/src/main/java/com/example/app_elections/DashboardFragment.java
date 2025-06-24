@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 public class DashboardFragment extends Fragment {
@@ -37,17 +38,18 @@ public class DashboardFragment extends Fragment {
 
         // Navigation
         electionsBtn.setOnClickListener(v ->
-                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new ElectionsFragment()));
+                ((MainActivity)requireActivity()).navigateToFragment(R.id.electionFragment));
 
         candidatesBtn.setOnClickListener(v ->
-                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CandidatesFragment()));
+                ((MainActivity)requireActivity()).navigateToFragment(R.id.candidatesFragment));
 
         districtsBtn.setOnClickListener(v ->
-                ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new DistrictsFragment()));
+                ((MainActivity)requireActivity()).navigateToFragment(R.id.districtsFragment));
 
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void loadSampleHistory() {
         String[] historyItems = {
                 "Élection Présidentielle 2024 - Terminée",
@@ -55,11 +57,22 @@ public class DashboardFragment extends Fragment {
                 "Référendum Constitutionnel 2022 - Terminée"
         };
 
+        // Ajoute un séparateur entre les éléments
         for (String item : historyItems) {
             TextView historyItem = new TextView(getContext());
             historyItem.setText("• " + item);
+            historyItem.setTextColor(ContextCompat.getColor(requireContext(), R.color.on_background));
             historyItem.setPadding(0, 8, 0, 8);
             historyContainer.addView(historyItem);
+
+            // Ajoute un séparateur
+            if (!item.equals(historyItems[historyItems.length-1])) {
+                View separator = new View(getContext());
+                separator.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                separator.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.divider));
+                historyContainer.addView(separator);
+            }
         }
     }
 }

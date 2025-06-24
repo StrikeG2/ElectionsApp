@@ -39,7 +39,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/elections_btn"
-                    style="@style/Widget.AppElections.Button.Outlined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -48,7 +47,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/candidates_btn"
-                    style="@style/Widget.AppElections.Button.Outlined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -57,7 +55,6 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/districts_btn"
-                    style="@style/Widget.AppElections.Button.Outlined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -121,6 +118,32 @@
                         app:icon="@drawable/ic_warning"
                         app:iconTint="@color/warning"
                         app:backgroundTint="@color/warning_light"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <!-- Ajoutez après le dernier MaterialCardView mais avant </LinearLayout> -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:id="@+id/history_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Historique des élections"
+                        android:textColor="@color/on_background"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Les éléments d'historique seront ajoutés dynamiquement ici -->
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

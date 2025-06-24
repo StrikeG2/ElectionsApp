@@ -14,13 +14,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.app_elections.viewmodels.ElectionViewModel;
+
 import java.util.Calendar;
 
 public class CreateElectionFragment extends Fragment {
 
     private EditText electionNameInput, electionDateInput;
     private Spinner electionTypeSpinner, roundSpinner;
-    private Button createButton;
+    private ElectionViewModel electionViewModel;
 
     public CreateElectionFragment() {
         // Required empty public constructor
@@ -32,12 +36,15 @@ public class CreateElectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_election, container, false);
 
+        // Initialisation du ViewModel
+        electionViewModel = new ViewModelProvider(this).get(ElectionViewModel.class);
+
         // Initialisation des vues
         electionNameInput = view.findViewById(R.id.election_name_input);
         electionTypeSpinner = view.findViewById(R.id.election_type_spinner);
         roundSpinner = view.findViewById(R.id.round_spinner);
         electionDateInput = view.findViewById(R.id.election_date_input);
-        createButton = view.findViewById(R.id.create_election_button);
+        Button createButton = view.findViewById(R.id.create_election_button);
 
         // Configurer les Spinners
         setupSpinners();
@@ -49,7 +56,6 @@ public class CreateElectionFragment extends Fragment {
         createButton.setOnClickListener(v -> {
             if (validateForm()) {
                 createElection();
-                navigateBack();
             }
         });
 
@@ -69,7 +75,7 @@ public class CreateElectionFragment extends Fragment {
         // Spinner Tour
         ArrayAdapter<CharSequence> roundAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
-                R.array.election_rounds,
+                R.array.election_tours,
                 android.R.layout.simple_spinner_item
         );
         roundAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,19 +117,24 @@ public class CreateElectionFragment extends Fragment {
     private void createElection() {
         String name = electionNameInput.getText().toString();
         String type = electionTypeSpinner.getSelectedItem().toString();
-        String round = roundSpinner.getSelectedItem().toString();
+        int round = roundSpinner.getSelectedItemPosition() + 1; // Convertir position en numéro de tour
         String date = electionDateInput.getText().toString();
 
-        // Envoyer les données au fragment précédent
-        Bundle result = new Bundle();
-        result.putString("election_name", name);
-        result.putString("election_type", type);
-        result.putString("election_round", round);
-        result.putString("election_date", date);
+        // Créer l'élection via le ViewModel
+        long electionId = electionViewModel.createElection(
+                name,
+                type,
+                round,
+                date,
+                "planifiée" // Statut par défaut
+        );
 
-        getParentFragmentManager().setFragmentResult("new_election", result);
-
-        showSuccess("Élection créée avec succès");
+        if (electionId != -1) {
+            showSuccess("Élection créée avec succès");
+            navigateBack();
+        } else {
+            showError("Erreur lors de la création de l'élection");
+        }
     }
 
     private void navigateBack() {
@@ -133,6 +144,7 @@ public class CreateElectionFragment extends Fragment {
     private void showError(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
+
     private void showSuccess(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }

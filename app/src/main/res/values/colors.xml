@@ -51,6 +51,7 @@
     <!-- Couleurs supplémentaires -->
     <color name="success">#4CAF50</color>
     <color name="warning">#FFC107</color>
+    <color name="warning_light">#FFC107</color>
     <color name="info">#2196F3</color>
 
     <!-- Couleurs pour les éléments UI -->
