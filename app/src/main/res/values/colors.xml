@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Couleurs du dégradé de fond (vert-jaune-bleu) -->
+
+    <color name="gradient_green">#98E4D6</color>     <!-- Vert-bleu au milieu -->
+    <color name="gradient_yellow">#F0E68C</color>
+    <color name="gradient_blue">#87CEEB</color>
+
+    <!-- Couleurs du texte logo -->
+    <color name="text_primary">#2C3E50</color>       <!-- Gris foncé pour "Result" -->
+    <color name="number_green">#27AE60</color>       <!-- Vert pour le "2" -->
+    <color name="number_yellow">#F39C12</color>      <!-- Jaune pour le "4" -->
+    <color name="number_blue">#3498DB</color>        <!-- Bleu pour le "1" -->
+
+    <!-- Couleurs des points décoratifs -->
+    <color name="dot_dark_blue">#2C3E50</color>      <!-- Bleu foncé -->
+    <color name="dot_green">#27AE60</color>          <!-- Vert -->
+    <color name="dot_orange">#E67E22</color>         <!-- Orange -->
+
+    <!-- Couleur du cercle de fond -->
+    <color name="circle_white_transparent">#B3FFFFFF</color>
 </resources>

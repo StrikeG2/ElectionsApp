@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">App_Elections</string>
+    <string name="prompt_filter_party">Filtrer par parti</string>
+    <string name="prompt_filter_zone">Filtrer par zone</string>
+    <string-array name="tri_candidats">
+        <item>Ordre alphabétique</item>
+        <item>Par score</item>
+        <item>Par parti politique</item>
+    </string-array>
+
 </resources>

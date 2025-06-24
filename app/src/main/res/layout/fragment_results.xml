@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Liste des élections -->
+        <Spinner
+            android:id="@+id/spinner_elections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Résultats globaux (exemple résumé) -->
+        <TextView
+            android:id="@+id/text_results_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Résultats globaux"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Graphiques placeholder (à remplacer par des vues Chart) -->
+        <LinearLayout
+            android:id="@+id/layout_charts"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="12dp">
+
+            <!-- Camembert -->
+            <View
+                android:id="@+id/pie_chart"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="#D0F0C0" />
+
+            <!-- Barres -->
+            <View
+                android:id="@+id/bar_chart"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="#C0D0F0" />
+        </LinearLayout>
+
+        <!-- Liste résultats par zone -->
+        <TextView
+            android:id="@+id/text_zone_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Résultats par zone"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_zone_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:clipToPadding="false"
+            android:paddingBottom="12dp" />
+
+        <Button
+            android:id="@+id/btn_share_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partager les résultats"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#fff"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
