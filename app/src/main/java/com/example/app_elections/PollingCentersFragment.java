@@ -36,7 +36,7 @@ public class PollingCentersFragment extends Fragment {
         loadSampleCenters();
 
         addCenterButton.setOnClickListener(v -> {
-            ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new CreatePollingCenterFragment());
+            ((MainActivity)requireActivity()).navigateToFragment(R.id.createPollingCenterFragment);
         });
 
         return view;

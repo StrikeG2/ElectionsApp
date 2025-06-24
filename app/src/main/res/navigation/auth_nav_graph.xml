@@ -1,6 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/navigation/auth_nav_graph.xml -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/auth_nav_graph">
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/registerFragment">
 
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.app_elections.RegisterFragment"
+        android:label="Inscription">
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_register_to_main"
+            app:destination="@id/main_nav_graph"
+            app:popUpTo="@id/auth_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.app_elections.LoginFragment"
+        android:label="Connexion">
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/main_nav_graph"
+            app:popUpTo="@id/auth_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -25,6 +25,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        dataBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -37,6 +40,9 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.room.common.jvm)
+    implementation(libs.navigation.runtime.android)
+    implementation(libs.navigation.ui)
+    implementation(libs.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -46,5 +52,6 @@ dependencies {
     implementation (libs.fragment)
     implementation(libs.sqlite)
     implementation(libs.room.runtime)
+    annotationProcessor (libs.room.compiler)
     implementation (libs.jbcrypt)
 }

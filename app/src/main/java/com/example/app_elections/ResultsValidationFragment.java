@@ -79,7 +79,7 @@ public class ResultsValidationFragment extends Fragment {
     }
 
     private void navigateToDashboard() {
-        ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new DashboardFragment());
+        ((MainActivity)requireActivity()).navigateToFragment(R.id.dashboardFragment);
     }
 
     private void showToast(String message) {

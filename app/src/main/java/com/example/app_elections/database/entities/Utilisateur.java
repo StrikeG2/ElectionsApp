@@ -12,7 +12,16 @@ public class Utilisateur {
     @ColumnInfo(name = "email")
     public String email;
 
-    @ColumnInfo(name = "motDePasse") // À remplacer par un hash en pratique
+    @ColumnInfo(name = "motDePasse")
     public String motDePasse;
-}
 
+    @ColumnInfo(name = "typeUtilisateur") // Nouveau champ pour distinguer les types
+    public String typeUtilisateur; // "electeur", "admin", "superviseur", "operateur"
+
+    // Constructeur
+    public Utilisateur(String email, String motDePasse, String typeUtilisateur) {
+        this.email = email;
+        this.motDePasse = motDePasse;
+        this.typeUtilisateur = typeUtilisateur;
+    }
+}

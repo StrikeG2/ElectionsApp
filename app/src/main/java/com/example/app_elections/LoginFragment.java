@@ -63,11 +63,11 @@ public class LoginFragment extends Fragment {
         switch (userType) {
             case "admin":
                 // Rediriger vers l'interface Admin
-                ((MainActivity) getActivity()).navigateToAdminDashboard();
+                ((MainActivity)requireActivity()).navigateToFragment(R.id.dashboardFragment);
                 break;
             case "electeur":
                 // Rediriger vers l'interface Electeur
-                ((MainActivity) getActivity()).navigateToVoterDashboard();
+                ((MainActivity)requireActivity()).navigateToFragment(R.id.dashboardFragment);
                 break;
             // Ajouter les autres cas selon vos besoins
             default:

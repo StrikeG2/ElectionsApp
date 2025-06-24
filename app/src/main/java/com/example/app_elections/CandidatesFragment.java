@@ -39,7 +39,7 @@ public class CandidatesFragment extends Fragment {
         populateSampleCandidates();
 
         addCandidateButton.setOnClickListener(v -> {
-            ((com.example.app_elections.MainActivity)requireActivity()).loadFragment(new AddCandidateFragment());
+            ((MainActivity)requireActivity()).navigateToFragment(R.id.addCandidateFragment);
         });
 
         return view;
