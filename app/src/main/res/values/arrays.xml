@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="election_types">
+        <item>Présidentielle</item>
+        <item>Législative</item>
+        <item>Municipale</item>
+        <item>Régionale</item>
+        <item>Européenne</item>
+    </string-array>
+    <string-array name="election_rounds">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

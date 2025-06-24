@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="@color/purple_500">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gérez les Résultats Électoraux Facilement"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Découvrez une nouvelle façon de suivre et de gérer les résultats électoraux"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="32dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="32dp">
+
+        <CheckableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Analyse des Données Électorales"
+            android:checked="false"/>
+
+        <CheckableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notifications en Temps Réel"
+            android:checked="true"/>
+
+        <CheckableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sécurité et Confidentialité Renforcées"
+            android:checked="false"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Commencer Maintenant"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/purple_500"/>
+</LinearLayout>
