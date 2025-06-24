@@ -92,16 +92,16 @@ public class LoginFragment extends Fragment {
     private void redirectUser(String userType) {
         switch (userType.toLowerCase()) {
             case "admin":
-                navigateTo(R.id.dashboardFragment);
+                navigateTo(R.id.action_login_to_main);
                 break;
             case "electeur":
-                navigateTo(R.id.dashboardFragment);
+                navigateTo(R.id.action_login_to_main);
                 break;
             case "superviseur":
-                navigateTo(R.id.dashboardFragment);
+                navigateTo(R.id.action_login_to_main);
                 break;
             case "operateur":
-                navigateTo(R.id.dashboardFragment);
+                navigateTo(R.id.action_login_to_main);
                 break;
             default:
                 Toast.makeText(requireContext(), "Type d'utilisateur inconnu", Toast.LENGTH_SHORT).show();
