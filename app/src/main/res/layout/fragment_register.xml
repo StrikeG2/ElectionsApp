@@ -111,14 +111,17 @@
                     android:layout_marginBottom="24dp"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/primary"
-                    app:hintTextColor="@color/primary">
+                    app:hintTextColor="@color/primary"
+                    app:endIconMode="dropdown_menu">
 
                     <AutoCompleteTextView
                         android:id="@+id/autoCompleteUserType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Type d'utilisateur"
-                        android:inputType="none"/>
+                        android:inputType="none"
+                        android:clickable="true"
+                        android:focusable="true"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Register Button -->

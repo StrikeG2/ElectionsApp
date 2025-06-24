@@ -24,4 +24,7 @@ public interface UtilisateurDao {
     @Query("SELECT typeUtilisateur FROM utilisateur WHERE email = :email LIMIT 1")
     String getUserType(String email);
 
+    @Query("SELECT EXISTS(SELECT 1 FROM utilisateur WHERE email = :email LIMIT 1)")
+    boolean userExists(String email);
+
 }

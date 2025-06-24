@@ -8,6 +8,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.app_elections.RegisterFragment"
         android:label="Inscription">
+
         <action
             android:id="@+id/action_register_to_login"
             app:destination="@id/loginFragment" />

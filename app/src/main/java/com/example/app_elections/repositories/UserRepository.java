@@ -1,5 +1,7 @@
 package com.example.app_elections.repositories;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,6 +13,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.concurrent.Executor;
 
 public class UserRepository {
+    private static final String TAG = "UserRepository";
     private final UtilisateurDao utilisateurDao;
     private final Executor executor;
 
@@ -22,21 +25,29 @@ public class UserRepository {
     public void enregistrerUtilisateur(String email, String motDePasse, String typeUtilisateur, RegistrationCallback callback) {
         executor.execute(() -> {
             try {
-                // Vérifier si l'email existe déjà
-                if (utilisateurDao.countByEmail(email) > 0) {
+                Log.d(TAG, "Vérification de l'email: " + email);
+                int count = utilisateurDao.countByEmail(email);
+
+                if (count > 0) {
+                    Log.w(TAG, "Email déjà existant: " + email);
                     callback.onError("Cet email est déjà utilisé");
                     return;
                 }
 
-                // Hacher le mot de passe avec BCrypt
+                Log.d(TAG, "Hachage du mot de passe pour: " + email);
                 String motDePasseHash = BCrypt.hashpw(motDePasse, BCrypt.gensalt());
+                Log.v(TAG, "Mot de passe hashé généré");
 
-                // Créer et insérer le nouvel utilisateur
+                Log.d(TAG, "Création de l'entité Utilisateur");
                 Utilisateur nouvelUtilisateur = new Utilisateur(email, motDePasseHash, typeUtilisateur);
+
+                Log.d(TAG, "Insertion en base de données");
                 utilisateurDao.insert(nouvelUtilisateur);
+                Log.i(TAG, "Utilisateur enregistré avec succès: " + email);
 
                 callback.onSuccess();
             } catch (Exception e) {
+                Log.e(TAG, "Exception lors de l'enregistrement", e);
                 callback.onError("Erreur lors de l'inscription: " + e.getMessage());
             }
         });
@@ -65,6 +76,16 @@ public class UserRepository {
         executor.execute(() -> {
             String type = utilisateurDao.getUserType(email);
             result.postValue(type);
+        });
+        return result;
+    }
+
+    // UserRepository.java
+    public LiveData<Boolean> userExists(String email) {
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
+        executor.execute(() -> {
+            boolean exists = utilisateurDao.userExists(email);
+            result.postValue(exists);
         });
         return result;
     }
