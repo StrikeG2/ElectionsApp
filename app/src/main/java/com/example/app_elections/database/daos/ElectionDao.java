@@ -14,9 +14,9 @@ public interface ElectionDao {
     @Insert
     long insert(Election election); // Retourne l'ID de l'élection créée
 
-    @Query("SELECT * FROM elections ORDER BY date_scrutin DESC")
+    @Query("SELECT * FROM election ORDER BY dateScrutin DESC")
     LiveData<List<Election>> getAllElections();
 
-    @Query("SELECT * FROM elections WHERE id = :electionId")
+    @Query("SELECT * FROM election WHERE id = :electionId")
     LiveData<Election> getElectionById(int electionId);
 }

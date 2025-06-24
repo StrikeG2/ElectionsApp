@@ -52,6 +52,11 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        // Lien "Se connecter" pour aller à la page de connexion
+        binding.textViewLoginLink.setOnClickListener(v -> {
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_register_to_login);
+        });
+
         // Observation des résultats
         viewModel.getInscriptionReussie().observe(getViewLifecycleOwner(), reussie -> {
             if (reussie) {
