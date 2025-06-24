@@ -37,6 +37,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "aVote INTEGER DEFAULT 0, " +
                     "FOREIGN KEY(idUtilisateur) REFERENCES " + TABLE_UTILISATEUR + "(id));";
 
+    private static final String CREATE_TABLE_ADMIN =
+            "CREATE TABLE " + TABLE_ADMIN + " (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "idUtilisateur INTEGER NOT NULL, " +
+                    "FOREIGN KEY(idUtilisateur) REFERENCES " + TABLE_UTILISATEUR + "(id));";
+
     private static final String CREATE_TABLE_ELECTION =
             "CREATE TABLE " + TABLE_ELECTION + " (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -76,10 +82,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Création des tables
         db.execSQL(CREATE_TABLE_UTILISATEUR);
         db.execSQL(CREATE_TABLE_ELECTEUR);
+        db.execSQL(CREATE_TABLE_ADMIN);
         db.execSQL(CREATE_TABLE_ELECTION);
         db.execSQL(CREATE_TABLE_CANDIDAT);
         db.execSQL(CREATE_TABLE_RESULTAT);
-        // Ajoutez les autres tables selon le même modèle
+        
+        // Créer un utilisateur admin de démonstration
+        createDemoUser(db);
     }
 
     @Override
@@ -88,10 +97,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESULTAT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CANDIDAT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ELECTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ADMIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ELECTEUR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_UTILISATEUR);
         // Recréation de la base
         onCreate(db);
+    }
+
+    private void createDemoUser(SQLiteDatabase db) {
+        // Insérer un utilisateur admin de démonstration
+        String insertUser = "INSERT INTO " + TABLE_UTILISATEUR + " (email, motDePasse) VALUES (?, ?)";
+        db.execSQL(insertUser, new String[]{"admin@elections.com", "admin123"});
+        
+        // Récupérer l'ID de l'utilisateur créé
+        Cursor cursor = db.rawQuery("SELECT id FROM " + TABLE_UTILISATEUR + " WHERE email = ?", 
+                                   new String[]{"admin@elections.com"});
+        
+        if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(0);
+            cursor.close();
+            
+            // Créer l'entrée admin correspondante
+            String insertAdmin = "INSERT INTO " + TABLE_ADMIN + " (idUtilisateur) VALUES (?)";
+            db.execSQL(insertAdmin, new String[]{String.valueOf(userId)});
+        }
     }
 
     public boolean checkUser(String email, String password) {
@@ -113,19 +142,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String userType = "unknown";
 
-        // Vérifier d'abord dans la table electeur
-        String query = "SELECT 1 FROM " + TABLE_ELECTEUR + " e " +
+        // Vérifier d'abord dans la table admin
+        String adminQuery = "SELECT 1 FROM " + TABLE_ADMIN + " a " +
+                "JOIN " + TABLE_UTILISATEUR + " u ON a.idUtilisateur = u.id " +
+                "WHERE u.email = ?";
+
+        Cursor cursor = db.rawQuery(adminQuery, new String[]{email});
+        if (cursor.getCount() > 0) {
+            userType = "admin";
+            cursor.close();
+            return userType;
+        }
+        cursor.close();
+
+        // Vérifier dans la table electeur
+        String electeurQuery = "SELECT 1 FROM " + TABLE_ELECTEUR + " e " +
                 "JOIN " + TABLE_UTILISATEUR + " u ON e.idUtilisateur = u.id " +
                 "WHERE u.email = ?";
 
-        Cursor cursor = db.rawQuery(query, new String[]{email});
+        cursor = db.rawQuery(electeurQuery, new String[]{email});
         if (cursor.getCount() > 0) {
             userType = "electeur";
         }
         cursor.close();
-
-        // Ajouter des vérifications similaires pour admin, superviseur, etc.
-        // ...
 
         return userType;
     }
